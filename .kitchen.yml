@@ -1,0 +1,28 @@
+---
+driver:
+  name: vagrant
+  gui: false
+  synced_folders:
+    # - ["synced_folder", "/synced_folder"]
+    - ["synced_folder", "C:\\synced_folder"]
+
+provisioner:
+  # If you dont want to use chef, you can install MSI with `shell` provisioner.
+  # `shell` provisioner will look for a `bootstrap.ps1` to run on the instance.
+  # Use the `bootstrap.ps1` to download and install the MSI:
+  # https://kevinmarquette.github.io/2016-10-21-powershell-installing-msi-files/
+  #name: shell
+  name: chef_solo
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: windows-2012-r2
+    driver:
+      box: mwrock/Windows2012R2
+    run_list:
+      - recipe[test_msi_installer]
+
+suites:
+  - name: default
