@@ -34,16 +34,22 @@ Note that the first time you run this it will take a _long_ time to download the
 
 This test sequence will:
 
-1. Destroy the VM if it is already running
-1. Build the VM using Vagrant and the config from the [`.kitchen.yml`](./.kitchen.yml)
-1. Converge the VM using the provisioner specified in the `.kitchen.yml`
+1. Destroy any of the running VMs running
+1. Build the VMs using Vagrant and the config from the [`.kitchen.yml`](./.kitchen.yml)
+1. Converge the VMs using the provisioner specified in the `.kitchen.yml`
 1. Verify the VM using the InSpec tests defined in [`test/integration`](./test/integration)
 1. Destroy the VM if the package was successfully installed
 
 ## Notes
 
-Run a PowerShell command in the guest VM from the host (lists installed software):
+Run a PowerShell command in the guest VM from the host (lists all installed software):
 
 ```
 bundle exec kitchen exec -c 'Get-WmiObject -Class Win32_Product'
+```
+
+Show the 7-Zip package install on the Windows 2012 guest VM:
+```
+bundle exec kitchen exec windows-2012 \
+  -c "Get-WmiObject -Class Win32_Product -Filter \"name='7-Zip 18.01 (x64 edition)'\""
 ```
