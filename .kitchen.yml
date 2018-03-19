@@ -2,10 +2,8 @@
 driver:
   name: vagrant
   gui: false
-  # Optionally save the `.msi` to ./synced_folder/package.msi and share the
-  # folder onto the VMs:
-  # synced_folders:
-  #   - ["synced_folder", "C:\\synced_folder"]
+  synced_folders:
+   - ["synced_folder", "C:\\synced_folder"]
 
 provisioner:
   name: shell # calls bootstrap.ps1 script to install the package
